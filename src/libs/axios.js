@@ -13,15 +13,6 @@ const uploadRequest = config.uploadFileRequest;
 
 const formRequest = config.FormRequest;
 
-const addErrorLog = errorInfo => {
-  const { statusText, status, request: { responseURL } } = errorInfo
-  let info = {
-    type: 'ajax',
-    code: status,
-    mes: statusText,
-    url: responseURL
-  }
-}
 
 class HttpRequest {
   constructor () {
@@ -44,7 +35,6 @@ class HttpRequest {
   interceptors (instance, url) {
     // 请求拦截
     instance.interceptors.request.use(config => {
-      console.log("url:"+url)
       config.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
       if (config.method.toLowerCase() === 'post') {
         if(judgeEleExistInArray(uploadRequest,url)){
@@ -67,16 +57,8 @@ class HttpRequest {
       return { data, status }
     }, error => {
       this.destroy(url)
-      let errorInfo = error.response
-      if (!errorInfo) {
-        const { request: { statusText, status }, config } = JSON.parse(JSON.stringify(error))
-        errorInfo = {
-          statusText,
-          status,
-          request: { responseURL: config.url }
-        }
-      }
-      addErrorLog(errorInfo)
+      let errorInfo = error.response.data
+      console.log(errorInfo);
       return Promise.reject(error)
     })
   }

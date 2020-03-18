@@ -68,7 +68,7 @@ import {
     })
   },
     // 得到用户信息
-    getUserInfo({ commit }) {
+  getUserInfo({ commit }) {
       return new Promise((resolve, reject) => {
         getUserInfo().then((res) => {
           commit('SET_USER_NAME', res.data.baseUser.userName);
@@ -77,6 +77,7 @@ import {
           commit('SET_ID', res.data.baseUser.id);
           commit('setHasGetInfo', true)
           commit('setAccess', res.data.access)
+          commit('SET_USER_NAME', res.data.baseUser.userName);
           resolve(res);
         }).catch((error) => {
           reject(error);
@@ -84,23 +85,6 @@ import {
       });
     },
   
-    // 此方法用来获取未读消息条数，接口只返回数值，不返回消息列表
-    getUnreadMessageCount ({ state, commit }) {
-      // getUnreadCount().then(res => {
-      //   const { data } = res
-        commit('setMessageCount', 2)
-      // })
-    },
-  
-    // 设置用户名
-    setUserName({ commit }, payload) {
-      commit('SET_USER_NAME', payload);
-    },
-  
-    // 设置头像
-    setAvatar({ commit }, payload) {
-      commit('SET_AVATAR', payload);
-    },
   };
   
   export default {

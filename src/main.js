@@ -4,7 +4,6 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import ViewUI from 'view-design';
-import i18n from '@/locale'
 import store from './store';
 import 'view-design/dist/styles/iview.css';
 import less from 'less'
@@ -25,7 +24,6 @@ Vue.use(less)
 new Vue({
   el: '#app',
   router,
-  i18n,
   store,
   render: h => h(App)
 })
